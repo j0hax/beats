@@ -1,4 +1,3 @@
-#include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -26,7 +25,9 @@ int main(int argc, char **argv) {
   bool print_at = true;
   bool print_newline = true;
 
-  while ((c = getopt(argc, argv, "afhin")) != -1) {
+  time_t timestamp = time(NULL);
+
+  while ((c = getopt(argc, argv, "afhint:")) != -1) {
     switch (c) {
     case 'a':
       print_at = false;
@@ -34,15 +35,16 @@ int main(int argc, char **argv) {
     case 'f':
       full_mode = true;
       break;
+    case '?':
     case 'h':
       printf("beats - outputs current Swatch Internet Time\n\n");
       printf("OPTIONS:\n");
-      printf("-a\tomit leading @-sign\n");
-      printf("-f\tprint full float\n");
-      printf("-h\tprint this help screen\n");
-      printf("-i\tomit decimal places\n");
-      printf("-n\tomit newline\n");
-      printf("Parse a timestamp by piping it into this program.\n");
+      printf("-a\t\tomit leading @-sign\n");
+      printf("-f\t\tprint full float\n");
+      printf("-h\t\tprint this help screen\n");
+      printf("-i\t\tomit decimal places\n");
+      printf("-n\t\tomit newline\n");
+      printf("-t TIMESTAMP\tparse UNIX timestamp\n");
       exit(EXIT_SUCCESS);
     case 'i':
       int_mode = true;
@@ -50,26 +52,20 @@ int main(int argc, char **argv) {
     case 'n':
       print_newline = false;
       break;
+
+    case 't':
+      if (!sscanf(optarg, "%ld", &timestamp)) {
+        fprintf(stderr, "Error: could not parse timestamp\n");
+        exit(EXIT_FAILURE);
+      }
+      break;
     }
   }
 
   // Make sure float and and int was specified at the same time
   if (int_mode && full_mode) {
-    errno = EINVAL;
-    perror("Float and integer modes");
+    fprintf(stderr, "Error: cannot use integer and float modes\n");
     exit(EXIT_FAILURE);
-  }
-
-  time_t timestamp;
-
-  // Check if input is being piped in
-  if (isatty(fileno(stdin))) {
-    timestamp = time(NULL);
-  } else {
-    if (!scanf("%ld", &timestamp)) {
-      perror("Parsing timestamp");
-      exit(EXIT_FAILURE);
-    }
   }
 
   // Get our beats for the time of day
