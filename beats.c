@@ -37,14 +37,14 @@ int main(int argc, char **argv) {
       break;
     case '?':
     case 'h':
-      printf("beats - outputs current Swatch Internet Time\n\n");
-      printf("OPTIONS:\n");
-      printf("-a\t\tomit leading @-sign\n");
-      printf("-f\t\tprint full float\n");
-      printf("-h\t\tprint this help screen\n");
-      printf("-i\t\tomit decimal places\n");
-      printf("-n\t\tomit newline\n");
-      printf("-t TIMESTAMP\tparse UNIX timestamp\n");
+      printf("Usage: beats [-ahn] [-f | -i] [-t timestamp]\n");
+      printf("Displays the Swatch Internet Time.\n\n");
+      printf("-a\tomit leading @-sign\n");
+      printf("-f\tprint full floating-point value\n");
+      printf("-h\tdisplay this help and exit\n");
+      printf("-i\tinteger mode (omit decimals)\n");
+      printf("-n\tomit newline (\\n)\n");
+      printf("-t\tparse UNIX timestamp\n");
       exit(EXIT_SUCCESS);
     case 'i':
       int_mode = true;

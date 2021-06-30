@@ -4,15 +4,15 @@ Swatch Internet Time implemented as a C program.
 ## Usage
 ```console
 $ beats -h
-beats - outputs current Swatch Internet Time
+Usage: beats [-ahn] [-f | -i] [-t timestamp]
+Displays the Swatch Internet Time.
 
-OPTIONS:
--a              omit leading @-sign
--f              print full float
--h              print this help screen
--i              omit decimal places
--n              omit newline
--t TIMESTAMP    parse UNIX timestamp
+-a      omit leading @-sign
+-f      print full floating-point value
+-h      display this help and exit
+-i      integer mode (omit decimals)
+-n      omit newline (\n)
+-t      parse UNIX timestamp
 ```
 
 ## Thanks
