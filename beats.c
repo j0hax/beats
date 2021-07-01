@@ -37,14 +37,14 @@ int main(int argc, char **argv) {
       break;
     case '?':
     case 'h':
-      printf("Usage: beats [-ahn] [-f | -i] [-t timestamp]\n");
-      printf("Displays the Swatch Internet Time.\n\n");
-      printf("-a\tomit leading @-sign\n");
-      printf("-f\tprint full floating-point value\n");
-      printf("-h\tdisplay this help and exit\n");
-      printf("-i\tinteger mode (omit decimals)\n");
-      printf("-n\tomit newline (\\n)\n");
-      printf("-t\tparse UNIX timestamp\n");
+      puts("Usage: beats [-ahn] [-f | -i] [-t timestamp]");
+      puts("Displays the Swatch Internet Time.\n");
+      puts("-a\tomit leading @-sign");
+      puts("-f\tprint full floating-point value");
+      puts("-h\tdisplay this help and exit");
+      puts("-i\tinteger mode (omit decimals)");
+      puts("-n\tomit newline (\\n)");
+      puts("-t\tparse UNIX timestamp");
       exit(EXIT_SUCCESS);
     case 'i':
       int_mode = true;
@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
 
     case 't':
       if (!sscanf(optarg, "%ld", &timestamp)) {
-        fprintf(stderr, "Error: could not parse timestamp\n");
+        fputs( "Error: could not parse timestamp\n", stderr);
         exit(EXIT_FAILURE);
       }
       break;
@@ -64,7 +64,7 @@ int main(int argc, char **argv) {
 
   // Make sure float and and int was specified at the same time
   if (int_mode && full_mode) {
-    fprintf(stderr, "Error: cannot use integer and float modes\n");
+    fputs("Error: cannot use integer and float modes\n", stderr);
     exit(EXIT_FAILURE);
   }
 
@@ -72,18 +72,19 @@ int main(int argc, char **argv) {
   double beats = to_beats(timestamp);
 
   if (print_at) {
-    printf("@");
+    putchar('@');
   }
 
   if (int_mode) {
     printf("%03i", (int)beats);
   } else if (full_mode) {
-    printf("%lf", beats);
+    //printf("%.15lf", beats);
+    printf("%.15f", beats);
   } else {
     printf("%03.*f", 2, beats);
   }
 
   if (print_newline) {
-    printf("\n");
+    putchar('\n');
   }
 }
