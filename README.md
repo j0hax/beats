@@ -15,6 +15,13 @@ Displays the Swatch Internet Time.
 -t      parse UNIX timestamp
 ```
 
+## Compile and Install
+`gcc` and `make` are required.
+
+Standard procedure:
+1. Run `make` to compile, or
+2. `make install` to compile and move the binary file to the `$PREFIX`
+
 ## Thanks
 Quite a few other implementations exist online, such as [brneor/swatch](https://github.com/brneor/swatch) and [hyphenrf/swatch.beats](https://github.com/hyphenrf/swatch.beats).
 
