@@ -16,7 +16,6 @@ double to_beats(time_t normal) {
 }
 
 int main(int argc, char **argv) {
-
   char c;
 
   // Default formatting
@@ -29,36 +28,36 @@ int main(int argc, char **argv) {
 
   while ((c = getopt(argc, argv, "afhint:")) != -1) {
     switch (c) {
-    case 'a':
-      print_at = false;
-      break;
-    case 'f':
-      full_mode = true;
-      break;
-    case '?':
-    case 'h':
-      puts("Usage: beats [-ahn] [-f | -i] [-t timestamp]");
-      puts("Displays the Swatch Internet Time.\n");
-      puts("-a\tomit leading @-sign");
-      puts("-f\tprint full floating-point value");
-      puts("-h\tdisplay this help and exit");
-      puts("-i\tinteger mode (omit decimals)");
-      puts("-n\tomit newline (\\n)");
-      puts("-t\tparse UNIX timestamp");
-      exit(EXIT_SUCCESS);
-    case 'i':
-      int_mode = true;
-      break;
-    case 'n':
-      print_newline = false;
-      break;
+      case 'a':
+        print_at = false;
+        break;
+      case 'f':
+        full_mode = true;
+        break;
+      case '?':
+      case 'h':
+        puts("Usage: beats [-ahn] [-f | -i] [-t timestamp]");
+        puts("Displays the Swatch Internet Time.\n");
+        puts("-a\tomit leading @-sign");
+        puts("-f\tprint full floating-point value");
+        puts("-h\tdisplay this help and exit");
+        puts("-i\tinteger mode (omit decimals)");
+        puts("-n\tomit newline (\\n)");
+        puts("-t\tparse UNIX timestamp");
+        exit(EXIT_SUCCESS);
+      case 'i':
+        int_mode = true;
+        break;
+      case 'n':
+        print_newline = false;
+        break;
 
-    case 't':
-      if (!sscanf(optarg, "%ld", &timestamp)) {
-        fputs( "Error: could not parse timestamp\n", stderr);
-        exit(EXIT_FAILURE);
-      }
-      break;
+      case 't':
+        if (!sscanf(optarg, "%ld", &timestamp)) {
+          fputs("Error: could not parse timestamp\n", stderr);
+          exit(EXIT_FAILURE);
+        }
+        break;
     }
   }
 
@@ -78,7 +77,7 @@ int main(int argc, char **argv) {
   if (int_mode) {
     printf("%03i", (int)beats);
   } else if (full_mode) {
-    //printf("%.15lf", beats);
+    // printf("%.15lf", beats);
     printf("%.15f", beats);
   } else {
     printf("%03.*f", 2, beats);
