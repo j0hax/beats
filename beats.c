@@ -77,8 +77,7 @@ int main(int argc, char **argv) {
   if (int_mode) {
     printf("%03i", (int)beats);
   } else if (full_mode) {
-    // printf("%.15lf", beats);
-    printf("%.15f", beats);
+    printf("%.15lf", beats);
   } else {
     printf("%03.*f", 2, beats);
   }
